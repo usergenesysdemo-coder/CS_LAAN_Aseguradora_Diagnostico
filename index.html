@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CX Safari | Latino Seguros</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --genesys-orange: #ff5a1f;
+      --genesys-dark: #1f2937;
+      --genesys-gray: #6b7280;
+      --bg-soft: #f8fafc;
+      --panel: #ffffff;
+      --line: #e5e7eb;
+      --accent-soft: #fff1eb;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      color: #111827;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hero-gradient {
+      background:
+        radial-gradient(circle at top left, rgba(255,90,31,0.18), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(59,130,246,0.12), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    .topic-btn {
+      transition: all .25s ease;
+      border: 1px solid var(--line);
+      background: white;
+    }
+
+    .topic-btn.active,
+    .topic-btn:hover {
+      border-color: var(--genesys-orange);
+      background: var(--accent-soft);
+      color: #9a3412;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(255,90,31,.10);
+    }
+
+    .topic-panel {
+      display: none;
+      animation: fadeIn .35s ease;
+    }
+
+    .topic-panel.active { display: block; }
+
+    .card-hover {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 42px rgba(15,23,42,.08);
+    }
+
+    .metric-pill {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      color: #9a3412;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header class="sticky top-0 z-50 border-b border-slate-200/80 glass">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-slate-500">CX Safari</p>
+        <h1 class="text-lg font-semibold text-slate-900">Latino Seguros | Landing Ejecutiva</h1>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-600">
+        <a href="#overview" class="hover:text-slate-900">Overview</a>
+        <a href="#diagnostico" class="hover:text-slate-900">Diagnóstico</a>
+        <a href="#touchpoints" class="hover:text-slate-900">Touchpoints</a>
+        <a href="#impacto" class="hover:text-slate-900">Impacto</a>
+        <a href="#roadmap" class="hover:text-slate-900">Roadmap</a>
+        <a href="#cta" class="hover:text-slate-900">Siguiente paso</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-gradient">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="inline-flex items-center rounded-full bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700 border border-orange-200">
+            Análisis ejecutivo de customer engagement para seguros
+          </span>
+          <h2 class="mt-6 text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900 leading-tight">
+            De una adquisición <span class="text-orange-600">digital fragmentada</span> a una experiencia omnicanal que convierta intención en pólizas
+          </h2>
+          <p class="mt-6 text-lg text-slate-600 leading-8 max-w-2xl">
+            Latino Seguros ya habilita puntos de entrada digitales como cotización online, formularios y WhatsApp, pero la experiencia se rompe cuando el cliente necesita acompañamiento. El problema no es la ausencia total de digitalización; es la falta de inteligencia, autoservicio y orquestación entre canales.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#diagnostico" class="rounded-2xl bg-slate-900 text-white px-5 py-3 text-sm font-medium shadow-sm hover:opacity-95">Ver diagnóstico</a>
+            <a href="#roadmap" class="rounded-2xl border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50">Explorar roadmap</a>
+          </div>
+          <div class="mt-8 flex flex-wrap gap-3 text-sm">
+            <span class="metric-pill rounded-full px-4 py-2 font-medium">Phase 1–2 de engagement</span>
+            <span class="metric-pill rounded-full px-4 py-2 font-medium">Dependencia de call center</span>
+            <span class="metric-pill rounded-full px-4 py-2 font-medium">WhatsApp sin journey</span>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white shadow-xl p-6 lg:p-8">
+          <p class="text-sm font-medium text-slate-500 uppercase tracking-[0.2em]">Executive Snapshot</p>
+          <div class="mt-6 space-y-4">
+            <div class="rounded-2xl border border-slate-200 p-5 bg-slate-50">
+              <p class="text-sm text-slate-500">Situación actual</p>
+              <p class="mt-2 text-xl font-semibold text-slate-900">Promesa digital visible, pero journey de atención incompleto y poco asistido</p>
+            </div>
+            <div class="rounded-2xl border border-orange-200 p-5 bg-orange-50">
+              <p class="text-sm text-orange-700">Problema central</p>
+              <p class="mt-2 text-xl font-semibold text-slate-900">La demanda digital se captura, pero no se orquesta: el cliente termina llamando para resolver o avanzar</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-5 bg-slate-50">
+              <p class="text-sm text-slate-500">Resultado esperado</p>
+              <p class="mt-2 text-xl font-semibold text-slate-900">Más conversión, menos fricción y menor dependencia operativa mediante bots, AI y continuidad omnicanal</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="overview" class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Overview</p>
+        <h3 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">Latino Seguros tiene presencia digital, pero no una experiencia conectada de principio a fin</h3>
+        <p class="mt-4 text-slate-600 leading-8">
+          La compañía muestra señales de digitalización básica: teléfono visible, formulario de contacto, acceso para clientes, cotizadores online y botón de WhatsApp. Sin embargo, no existe webchat, no hay autoservicio estructurado ni una capa visible de automatización inteligente. El resultado es una experiencia fragmentada donde la intención digital termina desviándose hacia voz.
+        </p>
+      </div>
+
+      <div class="mt-10 grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <article class="card-hover rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+          <p class="text-sm text-slate-500">01</p>
+          <h4 class="mt-3 text-xl font-semibold">Canales presentes, pero básicos</h4>
+          <p class="mt-3 text-slate-600 leading-7">La marca sí ofrece entradas digitales, pero sin asistencia contextual ni continuidad real.</p>
+        </article>
+        <article class="card-hover rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+          <p class="text-sm text-slate-500">02</p>
+          <h4 class="mt-3 text-xl font-semibold">Journey roto</h4>
+          <p class="mt-3 text-slate-600 leading-7">El usuario inicia online, pero para resolver, cotizar o avanzar termina migrando a teléfono.</p>
+        </article>
+        <article class="card-hover rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+          <p class="text-sm text-slate-500">03</p>
+          <h4 class="mt-3 text-xl font-semibold">Baja inteligencia CX</h4>
+          <p class="mt-3 text-slate-600 leading-7">No se detectan bots, automatización o AI que capturen intención y contengan demanda.</p>
+        </article>
+        <article class="card-hover rounded-3xl bg-white border border-slate-200 p-6 shadow-sm">
+          <p class="text-sm text-slate-500">04</p>
+          <h4 class="mt-3 text-xl font-semibold">Oportunidad clara</h4>
+          <p class="mt-3 text-slate-600 leading-7">Existe un gap entre la promesa de cotización rápida y la ejecución real del journey omnicanal.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="diagnostico" class="py-16 lg:py-20 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[320px,1fr] gap-8 items-start">
+        <div class="lg:sticky lg:top-24 space-y-3">
+          <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Diagnóstico</p>
+          <h3 class="text-3xl font-semibold tracking-tight text-slate-900">Navegación por insights</h3>
+          <p class="text-slate-600 leading-7">Cuatro lecturas ejecutivas para exponer la raíz de la fricción observable.</p>
+
+          <button class="topic-btn active w-full text-left rounded-2xl px-4 py-4" data-target="panel-1">Hallazgo principal</button>
+          <button class="topic-btn w-full text-left rounded-2xl px-4 py-4" data-target="panel-2">Canales y fricción</button>
+          <button class="topic-btn w-full text-left rounded-2xl px-4 py-4" data-target="panel-3">FTS y problema real</button>
+          <button class="topic-btn w-full text-left rounded-2xl px-4 py-4" data-target="panel-4">Benchmark y oportunidad</button>
+        </div>
+
+        <div class="rounded-3xl bg-white border border-slate-200 shadow-sm p-6 lg:p-8 min-h-[500px]">
+          <div id="panel-1" class="topic-panel active">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-500">Hallazgo principal</p>
+            <h4 class="mt-3 text-2xl font-semibold text-slate-900">Latino Seguros no carece de canales: carece de una experiencia diseñada para convertir intención</h4>
+            <p class="mt-4 text-slate-600 leading-8">El insight más importante es que la compañía ya genera interés digital, pero no lo acompaña con una capa de servicio inteligente. El cliente encuentra opciones de contacto, pero sin autoservicio, sin continuidad y sin una lógica omnicanal que conecte cotización, consulta, seguimiento y cierre.</p>
+            <div class="mt-6 grid md:grid-cols-3 gap-4">
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+                <p class="text-sm text-slate-500">Modelo actual</p>
+                <p class="mt-2 font-semibold text-slate-900">Digital básico + voz como fallback</p>
+              </div>
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+                <p class="text-sm text-slate-500">Madurez digital</p>
+                <p class="mt-2 font-semibold text-slate-900">Baja a intermedia</p>
+              </div>
+              <div class="rounded-2xl bg-orange-50 border border-orange-200 p-5">
+                <p class="text-sm text-orange-700">Riesgo</p>
+                <p class="mt-2 font-semibold text-slate-900">Fuga de conversión y presión creciente sobre el call center</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="panel-2" class="topic-panel">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-500">Canales y fricción</p>
+            <h4 class="mt-3 text-2xl font-semibold text-slate-900">Los touchpoints actuales capturan contacto, pero no resuelven ni acompañan el journey</h4>
+            <div class="mt-6 overflow-x-auto">
+              <table class="w-full text-sm border-separate border-spacing-0 overflow-hidden rounded-2xl border border-slate-200">
+                <thead class="bg-slate-100 text-slate-700">
+                  <tr>
+                    <th class="text-left px-4 py-3">Canal</th>
+                    <th class="text-left px-4 py-3">Estado</th>
+                    <th class="text-left px-4 py-3">Lectura CX</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white">
+                  <tr class="border-t border-slate-200">
+                    <td class="px-4 py-3">Teléfono</td>
+                    <td class="px-4 py-3">Visible y fácil de ubicar</td>
+                    <td class="px-4 py-3">Canal dominante por falta de alternativas inteligentes y continuidad digital</td>
+                  </tr>
+                  <tr class="border-t border-slate-200 bg-slate-50">
+                    <td class="px-4 py-3">Webchat</td>
+                    <td class="px-4 py-3">No evidente</td>
+                    <td class="px-4 py-3">Se pierde intención en sitio y no hay contención inmediata</td>
+                  </tr>
+                  <tr class="border-t border-slate-200">
+                    <td class="px-4 py-3">WhatsApp</td>
+                    <td class="px-4 py-3">Sí, visible</td>
+                    <td class="px-4 py-3">Canal potencialmente útil, pero sin prueba de journey automatizado o integrado</td>
+                  </tr>
+                  <tr class="border-t border-slate-200 bg-slate-50">
+                    <td class="px-4 py-3">Formulario</td>
+                    <td class="px-4 py-3">Disponible</td>
+                    <td class="px-4 py-3">Canal pasivo, lento y propenso a romper la continuidad de la experiencia</td>
+                  </tr>
+                  <tr class="border-t border-slate-200">
+                    <td class="px-4 py-3">FAQ / Help Center</td>
+                    <td class="px-4 py-3">Limitado</td>
+                    <td class="px-4 py-3">No existe un autoservicio estructurado para absorber dudas frecuentes</td>
+                  </tr>
+                  <tr class="border-t border-slate-200 bg-slate-50">
+                    <td class="px-4 py-3">Proactividad digital</td>
+                    <td class="px-4 py-3">No detectada</td>
+                    <td class="px-4 py-3">La marca no interviene en momentos críticos de abandono o indecisión</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="panel-3" class="topic-panel">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-500">FTS y problema real</p>
+            <h4 class="mt-3 text-2xl font-semibold text-slate-900">Los síntomas visibles apuntan a una deuda estructural en autoservicio e inteligencia CX</h4>
+            <div class="mt-6 grid md:grid-cols-3 gap-4">
+              <div class="rounded-2xl border border-slate-200 p-5 bg-slate-50">
+                <p class="text-sm text-slate-500">Lagging</p>
+                <p class="mt-2 font-semibold text-slate-900">Baja conversión digital y alta dependencia del call center</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 p-5 bg-slate-50">
+                <p class="text-sm text-slate-500">Leaning</p>
+                <p class="mt-2 font-semibold text-slate-900">Usuarios empiezan online, pero terminan llamando para avanzar o resolver dudas</p>
+              </div>
+              <div class="rounded-2xl border border-orange-200 p-5 bg-orange-50">
+                <p class="text-sm text-orange-700">Leading</p>
+                <p class="mt-2 font-semibold text-slate-900">Falta de autoservicio inteligente, bots y orquestación omnicanal</p>
+              </div>
+            </div>
+            <div class="mt-6 rounded-2xl border border-slate-200 p-6">
+              <h5 class="text-lg font-semibold text-slate-900">Problema real detrás del síntoma</h5>
+              <ul class="mt-4 space-y-3 text-slate-600 leading-7 list-disc pl-5">
+                <li>La experiencia digital genera expectativa, pero no resuelve con autonomía.</li>
+                <li>La promesa de cotización rápida no siempre se sostiene cuando aparece una duda o fricción.</li>
+                <li>La operación depende demasiado del humano para cerrar journeys que podrían iniciar y resolverse digitalmente.</li>
+                <li>Sin trazabilidad unificada, se dificulta aprender de intención, abandono y motivos de contacto.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="panel-4" class="topic-panel">
+            <p class="text-sm uppercase tracking-[0.18em] text-slate-500">Benchmark y oportunidad</p>
+            <h4 class="mt-3 text-2xl font-semibold text-slate-900">La brecha competitiva está en acompañar mejor la intención digital y reducir la fuga hacia voz</h4>
+            <div class="mt-6 grid md:grid-cols-2 gap-5">
+              <div class="rounded-2xl border border-slate-200 p-6 bg-slate-50">
+                <p class="text-sm text-slate-500">Estado actual</p>
+                <p class="mt-3 text-xl font-semibold">Digitalización básica sin AI visible</p>
+                <p class="mt-3 text-slate-600 leading-7">Hay acceso, contacto y cotización, pero no una estrategia clara de self-service, bots o handoff con contexto.</p>
+              </div>
+              <div class="rounded-2xl border border-orange-200 p-6 bg-orange-50">
+                <p class="text-sm text-orange-700">Best practice objetivo</p>
+                <p class="mt-3 text-xl font-semibold">Orquestación, intent recognition y continuidad omnicanal</p>
+                <p class="mt-3 text-slate-700 leading-7">Bots para cotización y servicio, WhatsApp integrado, routing inteligente y contexto compartido entre digital y humano.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="touchpoints" class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Touchpoints</p>
+        <h3 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">Auditoría visual del estado actual</h3>
+        <p class="mt-4 text-slate-600 leading-8">La evaluación de touchpoints confirma una operación que sí abre puertas digitales, pero todavía no entrega una experiencia de servicio realmente integrada ni escalable.</p>
+      </div>
+
+      <div class="mt-10 overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
+        <table class="w-full text-sm">
+          <thead class="bg-slate-100 text-slate-700">
+            <tr>
+              <th class="text-left px-5 py-4">Canal</th>
+              <th class="text-left px-5 py-4">Estado</th>
+              <th class="text-left px-5 py-4">Detalle</th>
+              <th class="text-left px-5 py-4">Lectura ejecutiva</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4">Voice</td>
+              <td class="px-5 py-4">Sí</td>
+              <td class="px-5 py-4">Teléfono visible en sitio</td>
+              <td class="px-5 py-4">Alta accesibilidad, pero también alta dependencia del canal humano</td>
+            </tr>
+            <tr class="border-t border-slate-200 bg-slate-50">
+              <td class="px-5 py-4">Webchat</td>
+              <td class="px-5 py-4">No</td>
+              <td class="px-5 py-4">No se detecta widget activo</td>
+              <td class="px-5 py-4">No existe acompañamiento en tiempo real dentro del sitio</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4">Predictive webchat</td>
+              <td class="px-5 py-4">No</td>
+              <td class="px-5 py-4">No visible</td>
+              <td class="px-5 py-4">No se interviene en puntos de abandono o indecisión</td>
+            </tr>
+            <tr class="border-t border-slate-200 bg-slate-50">
+              <td class="px-5 py-4">Callback</td>
+              <td class="px-5 py-4">No</td>
+              <td class="px-5 py-4">No visible</td>
+              <td class="px-5 py-4">Se fuerza al cliente a elegir entre esperar o abandonar</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4">Formulario</td>
+              <td class="px-5 py-4">Sí</td>
+              <td class="px-5 py-4">Contáctanos</td>
+              <td class="px-5 py-4">Canal útil para captación, pero pobre para resolución inmediata</td>
+            </tr>
+            <tr class="border-t border-slate-200 bg-slate-50">
+              <td class="px-5 py-4">FAQ / Help Center</td>
+              <td class="px-5 py-4">Limitado</td>
+              <td class="px-5 py-4">Contenido informativo no estructurado</td>
+              <td class="px-5 py-4">El autoservicio existe de forma incompleta y poco escalable</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4">WhatsApp</td>
+              <td class="px-5 py-4">Sí</td>
+              <td class="px-5 py-4">Botón visible como contacto</td>
+              <td class="px-5 py-4">Buen punto de entrada, pero sin evidencia de automatización avanzada</td>
+            </tr>
+            <tr class="border-t border-slate-200 bg-slate-50">
+              <td class="px-5 py-4">Personalización</td>
+              <td class="px-5 py-4">Parcial</td>
+              <td class="px-5 py-4">Acceso a clientes y agentes</td>
+              <td class="px-5 py-4">Existe base transaccional, pero no necesariamente personalización conversacional</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="px-5 py-4">Proactive engagement</td>
+              <td class="px-5 py-4">No</td>
+              <td class="px-5 py-4">No detectado</td>
+              <td class="px-5 py-4">La marca no acompaña al usuario en el momento crítico del journey</td>
+            </tr>
+            <tr class="border-t border-slate-200 bg-slate-50">
+              <td class="px-5 py-4">Automation / AI</td>
+              <td class="px-5 py-4">No evidente</td>
+              <td class="px-5 py-4">Sin chatbot visible</td>
+              <td class="px-5 py-4">La atención sigue siendo principalmente manual y reactiva</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="impacto" class="py-16 lg:py-20 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Impacto</p>
+          <h3 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">La oportunidad no es solo de servicio: es de conversión, costo y diferenciación</h3>
+          <p class="mt-4 text-slate-600 leading-8">
+            En un mercado asegurador altamente competido, la experiencia también compite. Una operación que obliga al cliente a llamar para casi todo eleva costos, frena conversión y limita la capacidad de escalar adquisición digital sin aumentar presión operativa.
+          </p>
+          <div class="mt-8 space-y-4">
+            <div class="rounded-2xl border border-slate-200 p-5 bg-white">
+              <p class="font-semibold text-slate-900">Fuga de conversión digital</p>
+              <p class="mt-2 text-slate-600">Cuando la cotización online no conecta con ayuda contextual, parte del interés se enfría o se pierde antes de cerrar.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-5 bg-white">
+              <p class="font-semibold text-slate-900">Mayor costo operativo</p>
+              <p class="mt-2 text-slate-600">La falta de autoservicio y contención empuja más volumen hacia agentes y call center.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 p-5 bg-white">
+              <p class="font-semibold text-slate-900">Menor trazabilidad CX</p>
+              <p class="mt-2 text-slate-600">Sin journeys conectados, es más difícil entender por qué contactan, dónde abandonan y qué acelerar.</p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl border border-slate-200 bg-white shadow-sm p-6 lg:p-8 h-[380px]">
+          <canvas id="impactChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roadmap" class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Roadmap</p>
+        <h3 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">Una evolución por fases para pasar de contacto reactivo a customer engagement inteligente</h3>
+        <p class="mt-4 text-slate-600 leading-8">No se trata de abrir más canales aislados. Se trata de diseñar una arquitectura que capture intención, entregue autoservicio, conecte conversaciones y escale con contexto.</p>
+      </div>
+
+      <div class="mt-10 grid lg:grid-cols-3 gap-6">
+        <article class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm card-hover">
+          <p class="text-sm text-slate-500">Fase 1</p>
+          <h4 class="mt-3 text-xl font-semibold">Base digital asistida</h4>
+          <ul class="mt-4 space-y-3 text-slate-600 leading-7 list-disc pl-5">
+            <li>Web messaging en journeys de cotización y servicio</li>
+            <li>Integración formal de WhatsApp como canal de atención</li>
+            <li>Definición de intents prioritarios para venta y postventa</li>
+            <li>Primeros flujos de autoservicio para dudas frecuentes</li>
+          </ul>
+        </article>
+        <article class="rounded-3xl bg-white border border-slate-200 p-6 shadow-sm card-hover">
+          <p class="text-sm text-slate-500">Fase 2</p>
+          <h4 class="mt-3 text-xl font-semibold">Orquestación omnicanal</h4>
+          <ul class="mt-4 space-y-3 text-slate-600 leading-7 list-disc pl-5">
+            <li>Handoff bot-agente con contexto</li>
+            <li>Routing inteligente por intención y tipo de cliente</li>
+            <li>Visibilidad consolidada de conversaciones</li>
+            <li>Continuidad real entre web, WhatsApp y voz</li>
+          </ul>
+        </article>
+        <article class="rounded-3xl bg-orange-50 border border-orange-200 p-6 shadow-sm card-hover">
+          <p class="text-sm text-orange-700">Fase 3</p>
+          <h4 class="mt-3 text-xl font-semibold">CX predictivo e inteligente</h4>
+          <ul class="mt-4 space-y-3 text-slate-700 leading-7 list-disc pl-5">
+            <li>Predictive engagement en momentos críticos</li>
+            <li>Optimización por intención, abandono y conversión</li>
+            <li>Personalización por contexto del asegurado</li>
+            <li>Analytics accionables para escalar eficiencia y crecimiento</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta" class="py-16 lg:py-20 bg-slate-50 border-y border-slate-200">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="rounded-3xl bg-white border border-slate-200 p-8 shadow-sm">
+          <p class="text-sm uppercase tracking-[0.2em] text-orange-600 font-semibold">Problema real</p>
+          <h3 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900">Lo que parece un reto de canales es en realidad un reto de conversión y orquestación</h3>
+          <p class="mt-4 text-slate-600 leading-8">Latino Seguros no necesita únicamente más contacto digital. Necesita una plataforma que una intención, automatización, contexto y operación humana para cerrar mejor la demanda que ya genera.</p>
+        </div>
+        <div class="rounded-3xl bg-slate-900 text-white p-8 shadow-sm">
+          <p class="text-sm uppercase tracking-[0.2em] text-orange-300 font-semibold">Narrativa ejecutiva</p>
+          <h3 class="mt-3 text-3xl font-semibold tracking-tight">No es falta de demanda: es una experiencia que todavía no monetiza bien la intención digital</h3>
+          <p class="mt-4 text-slate-300 leading-8">En seguros, la diferencia competitiva no solo está en precio o producto. También está en qué tan rápido, simple y conectado puede ser el journey desde la cotización hasta la resolución o el cierre.</p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="#overview" class="rounded-2xl bg-white text-slate-900 px-5 py-3 text-sm font-medium">Volver al inicio</a>
+            <a href="#diagnostico" class="rounded-2xl border border-slate-600 px-5 py-3 text-sm font-medium text-white">Revisar insights</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const buttons = document.querySelectorAll('.topic-btn');
+    const panels = document.querySelectorAll('.topic-panel');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.target).classList.add('active');
+      });
+    });
+
+    const ctx = document.getElementById('impactChart');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Captura digital', 'Conversión', 'Automatización', 'Visibilidad CX'],
+        datasets: [
+          {
+            label: 'Estado actual',
+            data: [45, 30, 10, 20],
+            backgroundColor: 'rgba(148, 163, 184, 0.75)',
+            borderRadius: 10
+          },
+          {
+            label: 'Potencial objetivo',
+            data: [80, 70, 60, 85],
+            backgroundColor: 'rgba(255, 90, 31, 0.78)',
+            borderRadius: 10
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            grid: {
+              color: 'rgba(148, 163, 184, 0.18)'
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
